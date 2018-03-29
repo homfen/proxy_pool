@@ -57,6 +57,10 @@ class GetConfig(object):
     def host_port(self):
         return int(self.config_file.get('HOST', 'port'))
 
+    @LazyProperty
+    def host_token(self):
+        return int(self.config_file.get('HOST', 'token'))
+
 if __name__ == '__main__':
     gg = GetConfig()
     print(gg.db_type)
@@ -66,3 +70,4 @@ if __name__ == '__main__':
     print(gg.proxy_getter_functions)
     print(gg.host_ip)
     print(gg.host_port)
+    print(gg.host_token)

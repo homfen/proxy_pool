@@ -22,6 +22,8 @@ from Util.GetConfig import GetConfig
 
 from Manager.ProxyManager import ProxyManager
 
+config = GetConfig()
+host_token = str(config.host_token)
 app = Flask(__name__)
 
 api_list = {
@@ -40,6 +42,9 @@ def index():
 
 @app.route('/get/')
 def get():
+    if not request.args.get('token') == host_token:
+        return 'token required'
+
     proxy = ProxyManager().get()
     return proxy if proxy else 'no proxy!'
 
@@ -54,12 +59,18 @@ def refresh():
 
 @app.route('/get_all/')
 def getAll():
+    if not request.args.get('token') == host_token:
+        return 'token required'
+
     proxies = ProxyManager().getAll()
     return jsonify(proxies)
 
 
 @app.route('/delete/', methods=['GET'])
 def delete():
+    if not request.args.get('token') == host_token:
+        return 'token required'
+
     proxy = request.args.get('proxy')
     ProxyManager().delete(proxy)
     return 'success'
@@ -67,12 +78,14 @@ def delete():
 
 @app.route('/get_status/')
 def getStatus():
+    if not request.args.get('token') == host_token:
+        return 'token required'
+
     status = ProxyManager().getNumber()
     return jsonify(status)
 
 
 def run():
-    config = GetConfig()
     app.run(host=config.host_ip, port=config.host_port)
 
 
