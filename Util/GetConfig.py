@@ -59,7 +59,7 @@ class GetConfig(object):
 
     @LazyProperty
     def host_token(self):
-        return int(self.config_file.get('HOST', 'token'))
+        return str(self.config_file.get('HOST', 'token'))
 
 if __name__ == '__main__':
     gg = GetConfig()

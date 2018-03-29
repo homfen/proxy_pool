@@ -23,7 +23,7 @@ from Util.GetConfig import GetConfig
 from Manager.ProxyManager import ProxyManager
 
 config = GetConfig()
-host_token = str(config.host_token)
+host_token = config.host_token
 app = Flask(__name__)
 
 api_list = {
